@@ -1,0 +1,50 @@
+- hosts: all
+  remote_user: devops
+  become: yes
+  roles:
+   - role: packages
+     pkg_list:
+      - name: htop
+        pkg_mgr: yum
+        version: 
+        state: latest
+
+      - name: ['httpd', 'mod_ssl']
+        pkg_mgr: yum
+        version:
+        state: present
+
+      - name: mc
+        pkg_mgr: yum
+        version: -4.8.7
+        state: present
+
+     win_pkg_list:
+      - name: notepadplusplus
+        win_pkg_mgr: win_chocolatey
+        version: -6.6
+        state: present
+
+   - role: filesystem
+     tags: ['mountvol']
+     vol_group:
+      - vg_create: lvg
+        volgrp_name: volgrp02
+        phys_disk: /dev/sda
+        state: present
+        
+     lgcl_volume:
+      - lv_create: lvol
+        volgrp_name: volgrp02
+        lv_name: lv_BAML
+        phys_disk: /dev/sda
+        size: 8G
+        state: present
+
+     mnt_volume:
+      - create_mnt_point: file
+        file_path: /data
+        state: directory
+        mode: 0755
+        owner: root
+        group: root
