@@ -1,9 +1,0 @@
----
-# tasks file for packages
-- name: Include RedHat specific tasks
-  include: RedHat.yml
-  when: ansible_os_family == "RedHat"
-
-- name: Include Windows specific tasks
-  include: Windows.yml
-  when: ansible_os_family == "Windows"
