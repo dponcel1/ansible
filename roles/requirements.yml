@@ -1,2 +1,2 @@
-src: https://github.com/dponcel1/filesystem.git
-version: master
+- src: https://github.com/dponcel1/filesystem.git
+  version: master
